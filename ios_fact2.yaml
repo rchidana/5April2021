@@ -1,0 +1,14 @@
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:
+      register: device_info
+
+    - name: DISPLAY ALL FACTS FROM REGISTER VARIABLE
+      debug:
+        msg: device_info
