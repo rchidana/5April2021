@@ -1,0 +1,24 @@
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:
+      register: device_info
+
+    - name: DISPLAY SERIAL NUMBER
+      debug:
+        var: device_info
+
+    - name: GREATER THAN VERSION 17
+      debug:
+        msg: "YOUR DEVICE HAS EITHER VERSION 17 or ABOVE"
+      when: device_info.ansible_facts.ansible_net_version.find("17.") != -1
+
+    - name: GREATER THAN VERSION 16
+      debug:
+        msg: "YOUR DEVICE HAS EITHER VERSION 16 BUT LESS THAN 17!!"
+      when: device_info.ansible_facts.ansible_net_version.find("16.") != -1
