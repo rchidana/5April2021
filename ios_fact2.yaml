@@ -11,4 +11,4 @@
 
     - name: DISPLAY ALL FACTS FROM REGISTER VARIABLE
       debug:
-        msg: device_info
+        var: device_info
